@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Create Account | IT Help Desk</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="auth-body">
+
+<div class="auth-card">
+
+  <div class="logo">IT</div>
+
+  <h1>Create Account</h1>
+
+  <p class="subtitle">
+    Create an account to submit and track support requests
+  </p>
+
+  <div class="error-message"
+       th:if="${error}"
+       th:text="${error}">
+  </div>
+
+  <form method="post" th:action="@{/register}">
+
+    <label for="username">Username</label>
+
+    <input
+            id="username"
+            type="text"
+            name="username"
+            placeholder="Choose a username"
+            required>
+
+    <label for="password">Password</label>
+
+    <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Choose a password"
+            required>
+
+    <button type="submit">
+      Create Account
+    </button>
+
+  </form>
+
+  <p class="auth-link">
+    Already have an account?
+    <a href="/login">Sign In</a>
+  </p>
+
+</div>
+
+</body>
+</html>

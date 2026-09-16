@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | IT Help Desk</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+  <h2>IT Help Desk</h2>
+
+  <div class="nav-user">
+    <a class="nav-link" th:if="${isAdmin}" href="/admin">Admin Dashboard</a>
+    <a class="nav-link" th:unless="${isAdmin}" href="/">Dashboard</a>
+
+    <form method="post" action="/logout">
+      <input type="hidden"
+             th:name="${_csrf.parameterName}"
+             th:value="${_csrf.token}">
+
+      <button class="logout-button" type="submit">
+        Logout
+      </button>
+    </form>
+  </div>
+</header>
+
+<main class="about-container">
+
+  <section class="about-card">
+
+    <div class="about-badge">PROJECT OVERVIEW</div>
+
+    <h1>Why I Built This Project</h1>
+
+    <p class="about-intro">
+      I created this IT Help Desk application to gain practical
+      experience designing and developing a full-stack system based
+      on a real business process.
+    </p>
+
+    <p>
+      The application allows users to create accounts, securely sign
+      in, submit IT support requests, and track their tickets. An
+      administrator account can view requests submitted across the
+      system and manage their status.
+    </p>
+
+    <p>
+      Building this project gave me hands-on experience connecting
+      a Java backend to a database and web interface while implementing
+      authentication, authorization, data management, and ticket
+      management.
+    </p>
+
+    <div class="about-section">
+
+      <h2>Technologies Used</h2>
+
+      <div class="tech-list">
+        <span>Java</span>
+        <span>Spring Boot</span>
+        <span>Spring Security</span>
+        <span>Spring Data JPA</span>
+        <span>H2 Database</span>
+        <span>Thymeleaf</span>
+        <span>HTML</span>
+        <span>CSS</span>
+      </div>
+
+    </div>
+
+    <div class="about-section">
+
+      <h2>Key Features</h2>
+
+      <div class="feature-grid">
+
+        <div class="feature">
+          <h3>User Authentication</h3>
+          <p>
+            Users can register and securely sign in to
+            their own accounts.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Ticket Management</h3>
+          <p>
+            Users can submit IT support requests and
+            track their status.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Admin Dashboard</h3>
+          <p>
+            Administrators can view tickets from all
+            users and manage their status.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Database Integration</h3>
+          <p>
+            User accounts and ticket information are
+            managed through a relational database.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+</body>
+</html>

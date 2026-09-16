@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard | IT Help Desk</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<!-- TOP NAVIGATION BAR -->
+<header class="navbar">
+
+  <h2>IT Help Desk</h2>
+
+  <div class="nav-user">
+    <a class="nav-link" href="/about">About</a>
+
+        <span> Signed in as <strong th:text="${username}">user</strong> </span>
+
+    <form method="post" action="/logout">
+      <input type="hidden"
+             th:name="${_csrf.parameterName}"
+             th:value="${_csrf.token}">
+
+      <button class="logout-button" type="submit">
+        Logout
+      </button>
+    </form>
+
+  </div>
+
+</header>
+
+
+<!-- MAIN PAGE -->
+<main class="container">
+
+  <div class="welcome">
+
+    <h1>Support Dashboard</h1>
+
+    <p>
+      Create and track your IT support requests.
+    </p>
+
+  </div>
+
+
+  <div class="dashboard-grid">
+
+
+    <!-- CREATE TICKET SIDE -->
+    <section class="card">
+
+      <h2>Create Ticket</h2>
+
+      <form method="post" th:action= "@{/tickets}">
+
+        <label for="employeeName">
+          Employee Name
+        </label>
+
+        <input
+                id="employeeName"
+                type="text"
+                name="employeeName"
+                placeholder="John Smith"
+                required>
+
+
+        <label for="department">
+          Department
+        </label>
+
+        <select
+                id="department"
+                name="department">
+
+          <option>Finance</option>
+          <option>Human Resources</option>
+          <option>Marketing</option>
+          <option>Sales</option>
+          <option>IT</option>
+          <option>Other</option>
+
+        </select>
+
+
+        <label for="issue">
+          Describe the Issue
+        </label>
+
+        <textarea
+                id="issue"
+                name="issue"
+                rows="5"
+                placeholder="Describe what's going wrong..."
+                required></textarea>
+
+
+        <label for="priority">
+          Priority
+        </label>
+
+        <select
+                id="priority"
+                name="priority">
+
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+
+        </select>
+
+
+        <button type="submit">
+          Submit Ticket
+        </button>
+
+      </form>
+
+    </section>
+
+
+    <!-- REQUESTS SIDE -->
+    <section class="card">
+
+      <h2>My Requests</h2>
+
+
+      <!-- SHOW THIS IF THERE ARE NO TICKETS -->
+      <div
+              class="empty"
+              th:if="${tickets.isEmpty()}">
+
+        You haven't submitted any support requests yet.
+
+      </div>
+
+
+      <!-- LOOP THROUGH USER'S TICKETS -->
+      <div
+              class="ticket"
+              th:each="ticket : ${tickets}">
+
+
+        <div class="ticket-top">
+
+          <strong>
+            Ticket #
+            <span th:text="${ticket.id}">1</span>
+          </strong>
+
+          <span
+                  class="status"
+                  th:text="${ticket.status}">
+                        OPEN
+                    </span>
+
+        </div>
+
+
+        <h3 th:text="${ticket.issue}">
+          Computer won't connect to Wi-Fi
+        </h3>
+
+
+        <p>
+          Employee:
+          <span th:text="${ticket.employeeName}">
+                        John Smith
+                    </span>
+        </p>
+
+
+        <p>
+          Department:
+          <span th:text="${ticket.department}">
+                        Finance
+                    </span>
+        </p>
+
+
+        <p>
+          Priority:
+          <strong th:text="${ticket.priority}">
+            High
+          </strong>
+        </p>
+
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+</body>
+</html>

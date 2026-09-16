@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Dashboard | IT Help Desk</title>
+
+  <link rel="stylesheet"
+        href="/css/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+  <h2>IT Help Desk | Admin</h2>
+
+  <div class="nav-user">
+    <a class="nav-link" href="/about">About</a>
+
+        <span> Head Account </span>
+
+    <form method="post" action="/logout">
+      <input type="hidden"
+             th:name="${_csrf.parameterName}"
+             th:value="${_csrf.token}">
+
+      <button class="logout-button" type="submit">
+        Logout
+      </button>
+    </form>
+  </div>
+</header>
+
+
+<main class="container">
+
+  <div class="welcome">
+
+    <h1>Admin Dashboard</h1>
+
+    <p>
+      View and manage all submitted support requests.
+    </p>
+
+  </div>
+
+
+  <section class="card">
+
+    <h2>All Support Tickets</h2>
+
+
+    <div class="empty"
+         th:if="${tickets.isEmpty()}">
+
+      No support tickets have been submitted.
+
+    </div>
+
+
+    <div class="ticket"
+         th:each="ticket : ${tickets}">
+
+
+      <div class="ticket-top">
+
+        <strong>
+          Ticket #
+          <span th:text="${ticket.id}">
+                        1
+                    </span>
+        </strong>
+
+        <span class="status"
+              th:text="${ticket.status}">
+                    OPEN
+                </span>
+
+      </div>
+
+
+      <h3 th:text="${ticket.issue}">
+        Computer won't connect to Wi-Fi
+      </h3>
+
+
+      <p>
+        <strong>Submitted by:</strong>
+
+        <span th:text="${ticket.username}">
+                    username
+                </span>
+      </p>
+
+
+      <p>
+        <strong>Employee:</strong>
+
+        <span th:text="${ticket.employeeName}">
+                    John Smith
+                </span>
+      </p>
+
+
+      <p>
+        <strong>Department:</strong>
+
+        <span th:text="${ticket.department}">
+                    Finance
+                </span>
+      </p>
+
+
+      <p>
+        <strong>Priority:</strong>
+
+        <span th:text="${ticket.priority}">
+                    High
+                </span>
+      </p>
+
+
+      <form
+              method="post"
+              th:action="@{/admin/tickets/{id}/status(id=${ticket.id})}">
+
+        <label>
+          Change Status
+        </label>
+
+        <select name="status">
+
+          <option value="OPEN">
+            Open
+          </option>
+
+          <option value="IN PROGRESS">
+            In Progress
+          </option>
+
+          <option value="RESOLVED">
+            Resolved
+          </option>
+
+        </select>
+
+        <button type="submit">
+          Update Status
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</main>
+
+</body>
+</html>

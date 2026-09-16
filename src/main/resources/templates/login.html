@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login | IT Help Desk</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="auth-body">
+
+<div class="auth-card">
+
+  <div class="logo">IT</div>
+
+  <h1>Welcome Back</h1>
+
+  <p class="subtitle">
+    Sign in to access the IT Help Desk
+  </p>
+
+  <div class="error-message" th:if="${param.error}">
+    Incorrect username or password.
+  </div>
+
+  <form method="post" th:action="@{/login}">
+
+    <label for="username">Username</label>
+
+    <input
+            id="username"
+            type="text"
+            name="username"
+            placeholder="Enter your username"
+            required>
+
+    <label for="password">Password</label>
+
+    <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            required>
+
+    <button type="submit">
+      Sign In
+    </button>
+
+  </form>
+
+  <p class="auth-link">
+    Don't have an account?
+    <a href="/register">Create Account</a>
+  </p>
+
+</div>
+
+</body>
+</html>
